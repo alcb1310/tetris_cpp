@@ -34,6 +34,7 @@ private:
   void RotateBlock();
   bool EventTriggered(double interval);
   void LockBlock();
+  bool BlockFits();
 
 protected:
   // TODO: Add protected members
