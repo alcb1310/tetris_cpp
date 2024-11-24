@@ -11,6 +11,7 @@ public:
   std::map<int, std::vector<Position>> cells;
   void Draw();
   void Move(int rows, int cols);
+  std::vector<Position> GetCelPositions();
 
   Block();
 
@@ -21,7 +22,6 @@ private:
   int colOffset;
 
   std::vector<Color> colors;
-  std::vector<Position> GetCelPositions();
 
 protected:
 };

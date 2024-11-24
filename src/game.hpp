@@ -15,6 +15,8 @@ public:
   void Run();
   void Draw();
 
+  void HandleInput();
+
 private:
   // TODO: Add private members
   Grid grid;
@@ -24,6 +26,10 @@ private:
 
   Block GetRandomBlock();
   std::vector<Block> GetAllBlocks();
+  void MoveBlockLeft();
+  void MoveBlockRight();
+  void MoveBlockDown();
+  bool IsBlockOutside();
 
 protected:
   // TODO: Add protected members
