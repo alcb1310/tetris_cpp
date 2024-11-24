@@ -1,51 +1,25 @@
-#ifndef GAME_HPP
-#define GAME_HPP
+#pragma once
 
+#include "block.hpp"
 #include "blocks.cpp"
-#include "constants.hpp"
 #include "grid.hpp"
 #include <raylib.h>
+#include <vector>
 
 class Game {
 public:
-  Game() {
-    // This is the constructor
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Mine");
-    SetTargetFPS(FPS);
+  Game(); 
 
-    grid = Grid();
-    grid.Print();
-  }
+  ~Game();
 
-  ~Game() {
-    // This is the destructor
-    CloseWindow();
-  }
-
-  void run() {
-    while (!WindowShouldClose()) {
-      BeginDrawing();
-      ClearBackground(DARK_BLUE);
-
-      grid.Draw();
-      zBlock.Draw();
-      EndDrawing();
-    }
-  }
+  void Run();
 
 private:
   // TODO: Add private members
   Grid grid;
-  LBlock lblock;
-  JBlock jBlock;
-  IBlock iBlock;
-  OBlock oBlock;
-  SBlock sBlock;
-  TBlock tBlock;
-  ZBlock zBlock;
+  std::vector<Block> blocks;
 
 protected:
   // TODO: Add protected members
 };
 
-#endif // !GAME_HPP
