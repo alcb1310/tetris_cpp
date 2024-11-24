@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "constants.hpp"
+#include <cstdlib>
 
 Game::Game() {
   // This is the constructor
@@ -7,7 +8,9 @@ Game::Game() {
   SetTargetFPS(FPS);
 
   grid = Grid();
-  blocks = {LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()};
+  blocks = GetAllBlocks();
+  currentBlock = GetRandomBlock();
+  nextBlock = GetRandomBlock();
 }
 
 Game::~Game() {
@@ -16,12 +19,34 @@ Game::~Game() {
 }
 
 void Game::Run() {
+
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(DARK_BLUE);
 
-    grid.Draw();
-    blocks[4].Draw();
+    Draw();
     EndDrawing();
   }
+}
+
+Block Game::GetRandomBlock() {
+  if (blocks.empty()) {
+    blocks = GetAllBlocks();
+  }
+
+  int randomIndex = rand() % blocks.size();
+
+  Block block = blocks[randomIndex];
+  blocks.erase(blocks.begin() + randomIndex);
+
+  return block;
+}
+
+std::vector<Block> Game::GetAllBlocks() {
+  return {LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()};
+}
+
+void Game::Draw() {
+    grid.Draw();
+    currentBlock.Draw();
 }

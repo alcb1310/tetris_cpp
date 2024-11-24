@@ -8,18 +8,23 @@
 
 class Game {
 public:
-  Game(); 
+  Game();
 
   ~Game();
 
   void Run();
+  void Draw();
 
 private:
   // TODO: Add private members
   Grid grid;
   std::vector<Block> blocks;
+  Block currentBlock;
+  Block nextBlock;
+
+  Block GetRandomBlock();
+  std::vector<Block> GetAllBlocks();
 
 protected:
   // TODO: Add protected members
 };
-
