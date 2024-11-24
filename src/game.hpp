@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "blocks.cpp"
 #include "constants.hpp"
 #include "grid.hpp"
 #include <raylib.h>
@@ -13,11 +14,6 @@ public:
     SetTargetFPS(FPS);
 
     grid = Grid();
-
-    grid.grid[0][0] = 1;
-    grid.grid[3][5] = 4;
-    grid.grid[17][8] = 7;
-
     grid.Print();
   }
 
@@ -32,6 +28,7 @@ public:
       ClearBackground(DARK_BLUE);
 
       grid.Draw();
+      zBlock.Draw();
       EndDrawing();
     }
   }
@@ -39,6 +36,13 @@ public:
 private:
   // TODO: Add private members
   Grid grid;
+  LBlock lblock;
+  JBlock jBlock;
+  IBlock iBlock;
+  OBlock oBlock;
+  SBlock sBlock;
+  TBlock tBlock;
+  ZBlock zBlock;
 
 protected:
   // TODO: Add protected members
