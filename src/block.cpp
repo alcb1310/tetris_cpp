@@ -4,7 +4,7 @@
 
 Block::Block() {
   cellSize = 30;
-  rotatioState = 0;
+  rotationState = 0;
   rowOffset = 0;
   colOffset = 0;
   colors = GetCellColors();
@@ -24,7 +24,7 @@ void Block::Move(int rows, int cols) {
 }
 
 std::vector<Position> Block::GetCelPositions() {
-  std::vector<Position> tiles = cells[rotatioState];
+  std::vector<Position> tiles = cells[rotationState];
   std::vector<Position> movedTiles;
   for (Position &item : tiles) {
     Position newPosition = Position(item.row + rowOffset, item.col + colOffset);
@@ -32,4 +32,13 @@ std::vector<Position> Block::GetCelPositions() {
   }
 
   return movedTiles;
+}
+
+void Block::Rotate() { rotationState = (rotationState + 1) % cells.size(); }
+
+void Block::UndoRotate() {
+  rotationState--;
+  if (rotationState < 0) {
+    rotationState = cells.size() - 1;
+  }
 }

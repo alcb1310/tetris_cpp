@@ -30,6 +30,7 @@ private:
   void MoveBlockRight();
   void MoveBlockDown();
   bool IsBlockOutside();
+  void RotateBlock();
 
 protected:
   // TODO: Add protected members
