@@ -23,6 +23,7 @@ private:
   std::vector<Block> blocks;
   Block currentBlock;
   Block nextBlock;
+  double lastUpdateTime;
 
   Block GetRandomBlock();
   std::vector<Block> GetAllBlocks();
@@ -31,6 +32,8 @@ private:
   void MoveBlockDown();
   bool IsBlockOutside();
   void RotateBlock();
+  bool EventTriggered(double interval);
+  void LockBlock();
 
 protected:
   // TODO: Add protected members

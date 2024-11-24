@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "constants.hpp"
 #include <cstdlib>
+#include <raylib.h>
 
 Game::Game() {
   // This is the constructor
@@ -11,6 +12,7 @@ Game::Game() {
   blocks = GetAllBlocks();
   currentBlock = GetRandomBlock();
   nextBlock = GetRandomBlock();
+  lastUpdateTime = 0;
 }
 
 Game::~Game() {
@@ -22,6 +24,10 @@ void Game::Run() {
 
   while (!WindowShouldClose()) {
     HandleInput();
+
+    if (EventTriggered(0.2)) {
+      MoveBlockDown();
+    }
 
     BeginDrawing();
     ClearBackground(DARK_BLUE);
@@ -90,6 +96,7 @@ void Game::MoveBlockDown() {
   currentBlock.Move(1, 0);
   if (IsBlockOutside()) {
     currentBlock.Move(-1, 0);
+    LockBlock();
   }
 }
 
@@ -109,4 +116,26 @@ void Game::RotateBlock() {
   if (IsBlockOutside()) {
     currentBlock.UndoRotate();
   }
+}
+
+bool Game::EventTriggered(double inteval) {
+  double currentTime = GetTime();
+
+  if (currentTime - lastUpdateTime >= inteval) {
+    lastUpdateTime = currentTime;
+    return true;
+  }
+
+  return false;
+}
+
+void Game::LockBlock() {
+  std::vector<Position> tiles = currentBlock.GetCelPositions();
+
+  for (Position item : tiles) {
+    grid.grid[item.row][item.col] = currentBlock.id;
+  }
+
+  currentBlock = nextBlock;
+  nextBlock = GetRandomBlock();
 }
