@@ -10,14 +10,18 @@ public:
   int id;
   std::map<int, std::vector<Position>> cells;
   void Draw();
+  void Move(int rows, int cols);
 
   Block();
 
 private:
   int cellSize;
   int rotatioState;
+  int rowOffset;
+  int colOffset;
 
   std::vector<Color> colors;
+  std::vector<Position> GetCelPositions();
 
 protected:
 };
