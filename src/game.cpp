@@ -13,6 +13,7 @@ Game::Game() {
   currentBlock = GetRandomBlock();
   nextBlock = GetRandomBlock();
   lastUpdateTime = 0;
+  gameOver = false;
 }
 
 Game::~Game() {
@@ -25,7 +26,7 @@ void Game::Run() {
   while (!WindowShouldClose()) {
     HandleInput();
 
-    if (EventTriggered(0.2)) {
+    if (EventTriggered(0.1)) {
       MoveBlockDown();
     }
 
@@ -61,6 +62,13 @@ void Game::Draw() {
 
 void Game::HandleInput() {
   int key = GetKeyPressed();
+  if (gameOver) {
+    if (key != 0) {
+      Reset();
+    } else {
+      return;
+    }
+  }
 
   switch (key) {
   case KEY_LEFT:
@@ -137,6 +145,11 @@ void Game::LockBlock() {
   }
 
   currentBlock = nextBlock;
+  if (!BlockFits()) {
+    gameOver = true;
+    return;
+  }
+
   nextBlock = GetRandomBlock();
   grid.ClearFullRows();
 }
@@ -151,4 +164,13 @@ bool Game::BlockFits() {
   }
 
   return true;
+}
+
+void Game::Reset() {
+  grid.Initialize();
+  blocks = GetAllBlocks();
+  currentBlock = GetRandomBlock();
+  nextBlock = GetRandomBlock();
+  lastUpdateTime = 0;
+  gameOver = false;
 }

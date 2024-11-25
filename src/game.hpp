@@ -24,6 +24,7 @@ private:
   Block currentBlock;
   Block nextBlock;
   double lastUpdateTime;
+  bool gameOver;
 
   Block GetRandomBlock();
   std::vector<Block> GetAllBlocks();
@@ -35,6 +36,7 @@ private:
   bool EventTriggered(double interval);
   void LockBlock();
   bool BlockFits();
+  void Reset();
 
 protected:
   // TODO: Add protected members
